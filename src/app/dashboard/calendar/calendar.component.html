@@ -1,0 +1,10 @@
+<mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+</mwl-demo-utils-calendar-header>
+
+<mwl-calendar-week-view
+  precision="minutes"
+  [viewDate]="viewDate"
+  [events]="events"
+  [refresh]="refresh"
+  (eventClicked)="onEventClicked($event)">
+</mwl-calendar-week-view>

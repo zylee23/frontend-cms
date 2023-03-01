@@ -1,0 +1,187 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">ClinicAI - Patient Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form id="registrationForm" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <!-- <ion-col size="10" offset="1"> -->
+          <!-- Image -->
+          <!-- https://stackoverflow.com/questions/34886621/how-to-style-ionic-input-type-file-as-a-button -->
+          <!-- <div class="picker">
+            <ion-img
+              class="image"
+              role="button"
+              [src]="selectedImage"
+              (click)="file.click()"
+              *ngIf="selectedImage"
+              ></ion-img>
+          </div>
+          <div class="pickerbutton">
+            <ion-button expand="full" (click)="file.click()" *ngIf="!selectedImage">
+              <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+              <ion-label slot="end">Profile pic</ion-label>
+            </ion-button>
+            <input
+              #file
+              class="ion-hide"
+              type="file"
+              accept="image/png, image/jpeg"
+              (change)="loadImageFromDevice($event)">
+          </div>
+        </ion-col> -->
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Name -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Name</ion-label>
+            <ion-input id="name" formControlName="name" type="text"></ion-input>
+            <app-microphone input="name" slot="end"></app-microphone>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- DOB -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Date of Birth</ion-label>
+            <ion-input id="dob" formControlName="dob" type="date"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <ion-item fill="outline">
+            <ion-label position="stacked">Clinic</ion-label>
+            <ion-select formControlName="clinic" interface="popover">
+              <ion-select-option *ngFor="let c of clinics" value="{{ c.clinic_id }}">{{ c.clinic_name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Address 1 -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Address 1</ion-label>
+            <ion-input id="address1" formControlName="address1" type="text"></ion-input>
+            <app-microphone input="address1" slot="end"></app-microphone>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Address 2 -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Address 2</ion-label>
+            <ion-input id="address2" formControlName="address2" type="text"></ion-input>
+            <app-microphone input="address2" slot="end"></app-microphone>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- State -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">State</ion-label>
+            <ion-select
+              id="state"
+              formControlName="state"
+              (ionChange)="addressSelectedChange($event, addressMode.STATE)"
+              interface="popover">
+              <ion-select-option
+                [value]="state"
+                *ngFor="let state of states">
+                {{ state }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- City -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">City</ion-label>
+            <ion-select
+              id="city"
+              formControlName="city"
+              (ionChange)="addressSelectedChange($event, addressMode.CITY)"
+              interface="popover">
+              <ion-select-option
+                [value]="city"
+                *ngFor="let city of cities">
+                {{ city }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Postcode -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Postcode</ion-label>
+            <ion-select id="postcode" formControlName="postcode" interface="popover">
+              <ion-select-option
+                [value]="postcode"
+                *ngFor="let postcode of postcodes">
+                {{ postcode }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Contact Number -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Contact Number</ion-label>
+            <ion-input id="contactNumber" formControlName="contactNumber" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Email -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input id="email" formControlName="email" type="email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- New Password -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">New Password</ion-label>
+            <ion-input id="newPassword" formControlName="newPassword" type="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <!-- Re-enter New Password -->
+          <ion-item fill="outline">
+            <ion-label position="stacked">Re-enter New Password</ion-label>
+            <ion-input id="reNewPassword" formControlName="reNewPassword" type="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button
+            id="btnSubmit"
+            type="submit"
+            [disabled]="registrationForm.invalid">
+            Sign Up As Patient
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

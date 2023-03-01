@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Create</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <h2 style="color: var(--ion-color-secondary); text-align: center;">CREATE</h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-label position="stacked">Create</ion-label>
+        <ion-select [formControl]="mode" interface="popover" (ionChange)="selectionChanged()">
+          <ion-select-option *ngFor="let o of options">{{ o }}</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <ion-grid *ngFor="let field of formFields">
+      <ng-container [ngSwitch]="field.type">
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+            <ion-list>
+              <ion-item fill="outline" *ngSwitchCase="'text'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-input formControlName="{{ field.formControl }}" type="text"></ion-input>
+                <app-microphone input="{{ field.formControl }}" slot="end"></app-microphone>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'date'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-input formControlName="{{ field.formControl }}" type="date"></ion-input>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'clinic'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-select formControlName="{{ field.formControl }}" interface="popover">
+                  <ion-select-option *ngFor="let c of clinics" value="{{ c.clinic_id }}">{{ c.clinic_name }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'state'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-select formControlName="{{ field.formControl }}" (ionChange)="addressSelectedChange($event, addressMode.STATE)" interface="popover">
+                  <ion-select-option *ngFor="let s of states">{{ s }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'city'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-select formControlName="{{ field.formControl }}" (ionChange)="addressSelectedChange($event, addressMode.CITY)" interface="popover">
+                  <ion-select-option *ngFor="let c of cities">{{ c }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'postcode'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-select formControlName="{{ field.formControl }}" interface="popover">
+                  <ion-select-option *ngFor="let p of postcodes">{{ p }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'contactNumber'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-input formControlName="{{ field.formControl }}" type="tel" pattern="[0-9]*" maxlength="11"></ion-input>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'email'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-input formControlName="{{ field.formControl }}" type="email"></ion-input>
+              </ion-item>
+              <ion-item fill="outline" *ngSwitchCase="'password'">
+                <ion-label position="stacked">{{ field.label }}</ion-label>
+                <ion-input formControlName="{{ field.formControl }}" type="password"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            id="create"
+            type="submit"
+            color="secondary"
+            expand="block"
+            [disabled]="createForm.invalid || mode.invalid"
+          >Create</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button color="secondary" expand="block" (click)="onReset()">Reset</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

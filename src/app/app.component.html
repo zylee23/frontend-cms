@@ -1,0 +1,42 @@
+<ion-app>
+  <ion-menu side="start" contentId="menu-content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>ClinicAI</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-card>
+          <ion-avatar style="margin:0 auto">
+            <!-- Replace with user profile picture -->
+            <img alt="Error" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+          </ion-avatar>
+          <ion-card-header style="text-align:center">
+            <ion-card-title>{{ username }}</ion-card-title>
+            <ion-card-content>{{ role }}</ion-card-content>
+          </ion-card-header>
+        </ion-card>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/dashboard">
+            <ion-icon name="calendar-clear-outline" slot="start"></ion-icon>
+            <ion-label>Dashboard</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle *ngIf="role == 'ADMIN'">
+          <ion-item lines="none" routerLink="/create">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            <ion-label>Create</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item id="onLogout" lines="none" button (click)="onLogout()">
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="menu-content"></ion-router-outlet>
+</ion-app>

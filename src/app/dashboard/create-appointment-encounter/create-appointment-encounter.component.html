@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title><strong>Create {{ role === "ADMIN" ? "Appointment / Encounter" : "Appointment" }}</strong></ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="danger" fill="solid" (click)="onCancel()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col size-sm="8" offset-sm="2">
+          <h2 style="color: var(--ion-color-secondary); text-align:center;">CREATE</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="10" offset-sm="1">
+          <ion-list>
+            <ion-item *ngIf="this.role === 'ADMIN'" fill="outline">
+              <ion-label position="stacked">Patient</ion-label>
+              <ion-select interface="popover" formControlName="patient">
+                <ion-select-option *ngFor="let p of patients" value="{{ p.patient_id }}">{{  p.patient_id }}: {{ p.patient_name }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item fill="outline">
+              <ion-label position="stacked">Clinic</ion-label>
+              <ion-select interface="popover" formControlName="clinic">
+                <ion-select-option *ngFor="let c of clinics" value="{{ c.clinic_id }}">{{ c.clinic_name }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item fill="outline">
+              <ion-label position="stacked">Date of Appointment</ion-label>
+              <ion-input formControlName="date" type="date"></ion-input>
+            </ion-item>
+            <ion-item fill="outline">
+              <ion-label position="stacked">Time of Appointment</ion-label>
+              <ion-input formControlName="time" type="time"></ion-input>
+            </ion-item>
+            <ion-item fill="outline">
+              <ion-label position="stacked">Doctor</ion-label>
+              <ion-select interface="popover" formControlName="doctor">
+                <ion-select-option *ngFor="let d of doctors" value="{{ d.doctor_id }}">Dr. {{ d.doctor_name }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item fill="outline">
+              <ion-label position="stacked">Comment</ion-label>
+              <ion-textarea formControlName="comment" rows="3"></ion-textarea>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            id="createAppointment"
+            type="submit"
+            color="secondary"
+            expand="block"
+            [disabled]="form.invalid"
+            (click)="createAppointment()">
+            <ion-icon name="create-outline"></ion-icon>
+            Appointment
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="this.role === 'ADMIN'">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            id="createEncounter"
+            type="submit"
+            color="secondary"
+            expand="block"
+            [disabled]="form.invalid"
+            (click)="createEncounter()">
+            <ion-icon name="create-outline"></ion-icon>
+            Encounter
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button color="secondary" expand="block" (click)="onReset()">
+            Reset
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button color="danger" expand="block" (click)="onCancel()">
+            Cancel
+          </ion-button>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </form>
+</ion-content>

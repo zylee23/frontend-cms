@@ -1,0 +1,7 @@
+{
+  "name": "ClinicAI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

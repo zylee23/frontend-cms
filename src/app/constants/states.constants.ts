@@ -1,0 +1,3 @@
+export const states = ["Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Malacca",
+  "Negeri Sembilan", "Pahang", "Perak", "Perlis", "Penang", "Sabah",
+  "Sarawak", "Selangor", "Terengganu"];

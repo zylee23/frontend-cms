@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title><strong>Search ICD</strong></ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="danger" fill="solid" (click)="onCancel()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="8" offset-sm="2">
+          <h2 style="color: var(--ion-color-secondary); text-align:center;">Select ICD</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="8" offset-sm="1">
+          <ion-searchbar (search)="onSearch($event)" [value]="converted"></ion-searchbar>
+        </ion-col>
+        <ion-col class="center" size-sm="2">
+          <app-microphone input="icd"></app-microphone>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="10" offset-sm="1">
+          <ion-item fill="outline">
+            <ion-label position="stacked">Select</ion-label>
+            <ion-select interface="popover" formControlName="icd">
+              <ion-select-option *ngFor="let result of results">{{ result }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            id="select"
+            type="submit"
+            color="secondary"
+            expand="block"
+            (click)="onSelect()"
+            [disabled]="this.form.invalid">
+            <ion-icon name="add-outline"></ion-icon>
+            Select
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
