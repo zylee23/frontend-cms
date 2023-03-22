@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, Router } from '@angular/router';
+import { CanLoad, UrlSegment, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { AppState } from '../store/app.reducer';
 import { isAuthenticated } from './store/auth.selectors';
+import { Route } from '../constants/route.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,7 @@ export class AuthGuard implements CanLoad {
         if (authenticated) {
           return true;
         }
-        // TODO: refactor route URL
-        this.router.navigateByUrl('/landing');
+        this.router.navigateByUrl(Route.LANDING);
       })
     )
   };

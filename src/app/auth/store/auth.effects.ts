@@ -83,7 +83,6 @@ export class AuthEffects {
     () => this.actions$.pipe(
       ofType(AuthActions.authSuccess),
       tap(action => {
-        // TODO: refactor string constant
         localStorage.setItem(this.storageKey, JSON.stringify(action.userData));
         this.router.navigateByUrl(Route.DASHBOARD);
       })

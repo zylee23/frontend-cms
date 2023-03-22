@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { Route } from '../constants/route.constants';
 
 @Component({
   selector: 'app-auth',
@@ -38,7 +39,7 @@ export class AuthPage implements OnInit {
 
   goToRegistration() {
     // TODO: refactor route literal
-    this.router.navigateByUrl('/registration');
+    this.router.navigateByUrl(Route.REGISTRATION);
   }
 
 }
